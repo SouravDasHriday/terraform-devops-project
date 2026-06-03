@@ -1,0 +1,13 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files (just in case, though ours are in S3)
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Ignore lock files for now to keep the repo clean
+.terraform.lock.hcl
