@@ -37,3 +37,14 @@ module "ec2" {
   subnet_id         = module.vpc.public_subnet_ids[0] 
   security_group_id = module.security_group.security_group_id
 }
+
+# 4. Call the ALB Module for Prod
+module "alb" {
+  source            = "../../modules/alb"
+  environment       = "prod"
+  
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+  security_group_id = module.security_group.security_group_id
+  instance_id       = module.ec2.instance_id
+}
