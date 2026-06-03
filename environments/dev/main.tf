@@ -44,3 +44,19 @@ module "ec2" {
   # We grab the security group ID from the security_group module's output
   security_group_id = module.security_group.security_group_id
 }
+
+# 4. Call the ALB Module
+module "alb" {
+  source            = "../../modules/alb"
+  environment       = "dev"
+  
+  # Connect it to the VPC and Subnets
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+  
+  # Give it the bouncer (Security Group)
+  security_group_id = module.security_group.security_group_id
+  
+  # Tell it which server to send traffic to
+  instance_id       = module.ec2.instance_id
+}
