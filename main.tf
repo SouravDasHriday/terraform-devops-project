@@ -5,6 +5,14 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket         = "devops-project-tfstate-sourav-2026"
+    key            = "global/s3/terraform.tfstate" # The file path inside S3
+    region         = "ap-southeast-1"
+    dynamodb_table = "devops-project-tfstate-locks"
+    encrypt        = true
+  }
 }
 
 provider "aws" {
